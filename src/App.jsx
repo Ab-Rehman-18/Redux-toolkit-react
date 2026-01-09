@@ -20,54 +20,60 @@ function App() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
-        Redux Toolkit Todo App
+  <div className="min-h-screen bg-slate-100 p-5">
+    <div className="w-full max-w-md mx-auto bg-white p-4 border">
+      
+      <h1 className="text-xl font-semibold text-center mb-3">
+        Todo App
       </h1>
 
       <form
         onSubmit={handleAddTodo}
-        className="flex gap-2 mb-8 p-4 bg-white rounded-lg shadow"
+        className="flex mb-3"
       >
         <input
           type="text"
           value={todo}
           onChange={(e) => setTodo(e.target.value)}
-          placeholder="Enter a todo..."
-          className="flex-1 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          placeholder="Write todo..."
+          className="flex-1 border border-gray-400 p-2 text-sm"
         />
+
         <button
           type="submit"
-          className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+          className="ml-2 bg-blue-600 text-white px-3 text-sm"
         >
-          Add Todo
+          Add
         </button>
       </form>
 
-      <div className="bg-white rounded-lg shadow">
-        <h2 className="text-xl font-semibold p-4 border-b border-gray-200">
-          Todos ({todos.length})
-        </h2>
+      {todos.length === 0 && (
+        <p className="text-sm text-gray-500 text-center">
+          No todos added yet
+        </p>
+      )}
 
-        <div className="divide-y divide-gray-200">
-          {todos.map((todoItem) => (
-            <div
-              key={todoItem.id}
-              className="flex items-center justify-between p-4"
+      <ul>
+        {todos.map((todoItem) => (
+          <li
+            key={todoItem.id}
+            className="flex justify-between items-center border-b py-2 text-sm"
+          >
+            <span>{todoItem.text}</span>
+
+            <button
+              onClick={() => handleDeleteTodo(todoItem.id)}
+              className="bg-red-500 text-white px-2 text-xs"
             >
-              <span className="text-gray-800 flex-1">{todoItem.text}</span>
-              <button
-                onClick={() => handleDeleteTodo(todoItem.id)}
-                className="px-4 py-2 bg-cyan-900 text-white text-sm rounded hover:bg-neutral-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
-              >
-                Delete
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+
     </div>
-  );
+  </div>
+);
 }
 
 export default App;
